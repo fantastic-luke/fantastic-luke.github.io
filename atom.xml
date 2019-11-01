@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fantastic-luke.github.io</id>
     <title>易之享</title>
-    <updated>2019-10-31T09:36:59.598Z</updated>
+    <updated>2019-11-01T05:11:01.466Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fantastic-luke.github.io"/>
     <link rel="self" href="https://fantastic-luke.github.io/atom.xml"/>
@@ -11,46 +11,44 @@
     <icon>https://fantastic-luke.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 易之享</rights>
     <entry>
-        <title type="html"><![CDATA[My Blog]]></title>
-        <id>https://fantastic-luke.github.io/post/my-blog</id>
-        <link href="https://fantastic-luke.github.io/post/my-blog">
+        <title type="html"><![CDATA[Matlab基础之.m文件创建及使用]]></title>
+        <id>https://fantastic-luke.github.io/post/matlab-ji-chu-zhi-m-wen-jian-chuang-jian-ji-shi-yong</id>
+        <link href="https://fantastic-luke.github.io/post/matlab-ji-chu-zhi-m-wen-jian-chuang-jian-ji-shi-yong">
         </link>
-        <updated>2019-10-31T07:59:33.000Z</updated>
-        <content type="html"><![CDATA[<p>The first one.<br>
-happy!</p>
-<figure data-type="image" tabindex="1"><img src="https://img-blog.csdnimg.cn/20191021150048734.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://fantastic-luke.github.io/post/hello-gridea</id>
-        <link href="https://fantastic-luke.github.io/post/hello-gridea">
-        </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+        <updated>2019-11-01T05:08:30.000Z</updated>
+        <content type="html"><![CDATA[<h4 id="一创建">一.创建</h4>
+<p>1.打开Matlab如下图所示，点击“新建脚本”<br>
+<img src="https://img-blog.csdnimg.cn/2019101316173795.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">2.然后会出现“编辑器”界面，在“编辑器”界面里随便输入字符，然后点击关闭<br>
+<img src="https://img-blog.csdnimg.cn/2019101316185110.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">3.点击“是”<br>
+<img src="https://img-blog.csdnimg.cn/20191013162035253.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">4.选择一个你需要保存的路径，例如下图的路径是桌面&gt;新建文件夹（2）&gt;新建文件夹1<br>
+<img src="https://img-blog.csdnimg.cn/20191013162212524.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">5.点击保存（注意：.m名称可以用英文字母修改，不要用中文）<br>
+<img src="https://img-blog.csdnimg.cn/2019101316254268.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="二使用">二.使用</h3>
+<p>1.打开Matlab主界面，点击“打开”<br>
+<img src="https://img-blog.csdnimg.cn/20191013162627238.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">2.从刚才路径中找到.m文件并打开<br>
+<img src="https://img-blog.csdnimg.cn/20191013162726709.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+3.我们先在“新建文件夹1”里面放一张图片“01.jpg”<br>
+<img src="https://img-blog.csdnimg.cn/20191013164433602.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+4.我们在编辑器里输入代码。<br>
+例如一个截取图片的代码：</p>
+<pre><code class="language-matlab">//%截取图片
+A=imread('01.jpg');
+%读取01.jpg图片赋值给A
+B=zeros(100,50,3);
+%创建三维矩阵，注意第三维为3，因为彩色图片有R.G.B
+B=A(1:100,1:50,:);
+%截取图片A（1-100行，1-50列）
+imshow(B)
+%显示图片B
+</code></pre>
+<p>然后点击“保存”<br>
+<img src="https://img-blog.csdnimg.cn/20191013164347583.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+5.在弹出框中，点击“更改文件夹”<br>
+<img src="https://img-blog.csdnimg.cn/2019101316440513.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+6.点击“运行”<br>
+<img src="https://img-blog.csdnimg.cn/20191013165359913.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+7.运行结果如图所示<br>
+<img src="https://img-blog.csdnimg.cn/20191013165416441.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 ]]></content>
     </entry>
 </feed>
