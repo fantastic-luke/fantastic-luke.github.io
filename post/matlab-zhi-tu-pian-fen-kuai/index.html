@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>易之享</title>
+<title>Matlab之图片分块 | 易之享</title>
 <meta name="description" content="让分享变得更简单" />
 <link rel="shortcut icon" href="https://fantastic-luke.github.io/favicon.ico?v=1572585276664">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -70,59 +70,64 @@
   </div>
 </div>
 
-    
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Matlab之图片分块
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-11-01
+              </span>
+              <span>
+                1 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>1.使用Matlab建立.m文件，具体如何建立见文章：<br>
+<a href="https://blog.csdn.net/qq_45448725/article/details/102534631">Matlab基础之.m文件创建及使用</a><br>
+2.写入下列代码</p>
+<pre><code>%将图片按照highsplit*widesplit（eg:3*3）切割
+clear;
+clc;
+R=imread('01.jpg');%读取图片01.jpg
+highsplit=3;%设置对高平均切割为几份
+widesplit=3;%设置对宽平均切割为几份
+high=floor(size(R,1)/highsplit);%读取图片的高并向下取整
+wide=floor(size(R,2)/widesplit);%读取图片的宽并向下取整
+for i=0:(highsplit-1)%i控制行
+    for j=0:(widesplit-1)%j控制列
+        R1=imcrop(R,[i*wide+1 j*high+1 wide-1 high-1]); %（j*wide+1 i*high+1）为切割起始点；（wide-1 high-1）为切割范围
+        imwrite(R1,['new_' int2str(i+1) '_' int2str(j+1) '.jpg'])%保存切割后的图片（注意表达式中的空格）
+    end
+end
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://img-blog.csdnimg.cn/20191021140318145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></figure>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://fantastic-luke.github.io/post/matlab-ji-chu-zhi-m-wen-jian-chuang-jian-ji-shi-yong">
+              <h3 class="post-title">
+                Matlab基础之.m文件创建及使用
+              </h3>
+            </a>
+          </div>
         
 
-<div class="archives-container">
-  
-    <h2 class="year">2019</h2>
-    
-      
-        <a href="https://fantastic-luke.github.io/post/matlab-zhi-wen-jian-pi-liang-ming-ming-han-gui" class="post">
-          <h2 class="post-title">
-            Matlab之文件批量命名（含GUI）
-          </h2>
-          <div class="time">2019-11-01</div>
-        </a>
-      
-    
-      
-        <a href="https://fantastic-luke.github.io/post/matlab-zhi-tu-pian-pin-jie" class="post">
-          <h2 class="post-title">
-            Matlab之图片拼接
-          </h2>
-          <div class="time">2019-11-01</div>
-        </a>
-      
-    
-      
-        <a href="https://fantastic-luke.github.io/post/matlab-zhi-tu-pian-fen-kuai" class="post">
-          <h2 class="post-title">
-            Matlab之图片分块
-          </h2>
-          <div class="time">2019-11-01</div>
-        </a>
-      
-    
-      
-        <a href="https://fantastic-luke.github.io/post/matlab-ji-chu-zhi-m-wen-jian-chuang-jian-ji-shi-yong" class="post">
-          <h2 class="post-title">
-            Matlab基础之.m文件创建及使用
-          </h2>
-          <div class="time">2019-11-01</div>
-        </a>
-      
-    
-  
-</div>
+        
 
-    
-        <div class="pagination-container">
-  
-  
-</div>
-
-    
         <div class="site-footer">
   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
   <a class="rss" href="https://fantastic-luke.github.io/atom.xml" target="_blank">RSS</a>

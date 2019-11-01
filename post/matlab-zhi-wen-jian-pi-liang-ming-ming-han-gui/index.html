@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>易之享</title>
+<title>Matlab之文件批量命名（含GUI） | 易之享</title>
 <meta name="description" content="让分享变得更简单" />
 <link rel="shortcut icon" href="https://fantastic-luke.github.io/favicon.ico?v=1572585276664">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -70,59 +70,82 @@
   </div>
 </div>
 
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Matlab之文件批量命名（含GUI）
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-11-01
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p><strong>功能</strong>：可以实现对指定后缀的文件进行批量重命名，我写了4种命名方式，想增添的可以自行修改。<br>
+<strong>GUI界面</strong><br>
+<img src="https://img-blog.csdnimg.cn/20191030151620325.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+<strong>代码</strong></p>
+<pre><code>name=get(handles.e1,'string');%读取后缀名
+way=get(handles.e2,'string');%读取命名方式
+W=['1','2','3','4'];
+if ismember(way,W)==1%方式输错报错
+files=dir(name);%读取文件
+len=length(files);%读取文件数量
+for i=1:len
+    oldname=files(i).name;%读取旧文件名
+    switch way
+        case '1'
+            newname=strcat(num2str(i),'.jpg');%录入新文件名
+        case '2'
+            CC=strsplit(files(i).date,{'-','月-',' ',':'});
+            newname=strcat(num2str(i),'_',CC{3},'.',CC{2},'.',CC{1},'.jpg');%录入新文件名
+        case '3'
+            CC=strsplit(files(i).date,{'-','月-',' ',':'});
+            newname=strcat(CC{3},'.',CC{2},'.',CC{1},'.',CC{4},'.jpg');%录入新文件名
+        case '4'
+            G=sprintf('%04d',i);
+            newname=strcat(G,'.jpg');%录入新文件名
+    end
     
+    command=['rename' 32 oldname 32 newname];%调用rename系统函数，32是ASCII码，表示空格
+    status=dos(command);%设置提示信息
+    if status ~= 0
+        disp([oldname, '重命名失败',10]);
+    end
+end
+disp('运行完毕')
+else
+    disp('请输入正确的命名方式');
+end
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://fantastic-luke.github.io/post/matlab-zhi-tu-pian-pin-jie">
+              <h3 class="post-title">
+                Matlab之图片拼接
+              </h3>
+            </a>
+          </div>
         
 
-<div class="archives-container">
-  
-    <h2 class="year">2019</h2>
-    
-      
-        <a href="https://fantastic-luke.github.io/post/matlab-zhi-wen-jian-pi-liang-ming-ming-han-gui" class="post">
-          <h2 class="post-title">
-            Matlab之文件批量命名（含GUI）
-          </h2>
-          <div class="time">2019-11-01</div>
-        </a>
-      
-    
-      
-        <a href="https://fantastic-luke.github.io/post/matlab-zhi-tu-pian-pin-jie" class="post">
-          <h2 class="post-title">
-            Matlab之图片拼接
-          </h2>
-          <div class="time">2019-11-01</div>
-        </a>
-      
-    
-      
-        <a href="https://fantastic-luke.github.io/post/matlab-zhi-tu-pian-fen-kuai" class="post">
-          <h2 class="post-title">
-            Matlab之图片分块
-          </h2>
-          <div class="time">2019-11-01</div>
-        </a>
-      
-    
-      
-        <a href="https://fantastic-luke.github.io/post/matlab-ji-chu-zhi-m-wen-jian-chuang-jian-ji-shi-yong" class="post">
-          <h2 class="post-title">
-            Matlab基础之.m文件创建及使用
-          </h2>
-          <div class="time">2019-11-01</div>
-        </a>
-      
-    
-  
-</div>
+        
 
-    
-        <div class="pagination-container">
-  
-  
-</div>
-
-    
         <div class="site-footer">
   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
   <a class="rss" href="https://fantastic-luke.github.io/atom.xml" target="_blank">RSS</a>

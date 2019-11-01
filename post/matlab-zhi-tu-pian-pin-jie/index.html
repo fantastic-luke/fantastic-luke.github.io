@@ -1,0 +1,328 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Matlab之图片拼接 | 易之享</title>
+<meta name="description" content="让分享变得更简单" />
+<link rel="shortcut icon" href="https://fantastic-luke.github.io/favicon.ico?v=1572585276664">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://fantastic-luke.github.io/styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://fantastic-luke.github.io">
+  <img class="avatar" src="https://fantastic-luke.github.io/images/avatar.png?v=1572585276664" alt="">
+  </a>
+  <h1 class="site-title">
+    易之享
+  </h1>
+  <p class="site-description">
+    让分享变得更简单
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Matlab之图片拼接
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-11-01
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p><strong>功能</strong>：可以自定义行列数拼接图片，拼接同时可以自定义对每张图片进行增（减）白边处理。</p>
+<p>1.使用Matlab建立.m文件，具体如何建立见文章：<br>
+<a href="https://blog.csdn.net/qq_45448725/article/details/102534631">Matlab基础之.m文件创建及使用</a><br>
+2.我写了两份代码可供参考<br>
+<strong>代码一</strong></p>
+<pre><code>%图片合并，可以实现将一组图片变为统一规格尺寸（默认第一张图的尺寸）
+%可以自定义行列数拼合成一整张图片，若图片数不足行列乘积数则用等尺寸白色图片代替
+%可以设置为每一张图片增加或减少白边
+
+clear;
+%设置行列数
+row=3;%输入组合图片行数
+column=3;%输入组合图片列数
+
+%增白边
+h1=10;%上下宽度
+
+%去白边
+c1=0;%上白边宽度
+c2=0;%下白边宽度
+c3=0;%左白边宽度
+c4=0;%右白边宽度
+
+%将图片录入数组
+pictures=dir('*.jpg');%读取文件，录入结构体数组
+num1=row*column;
+num2=size(pictures,1);%读取图片数量
+[high,wide,a]=size(imread(pictures(1).name));%读取第一张图片的尺寸
+F=255*ones(high,wide,3);%创建空白图片F
+for i=1:num1%将所有图片设置为与第一张图片的尺寸相同并导入四维矩阵pic
+    if i&lt;=num2
+    pic(:,:,:,i)=imresize(imread(pictures(i).name),[high,wide]);
+    else%若图片数目小于行列乘积数则插入空白图片F
+    pic(:,:,:,i)=F;
+    end
+end
+
+%增加白边
+if h1~=0
+top1=255*ones(h1,wide,3,num1);
+right1=255*ones(high+2*h1,h1,3,num1);
+pic=cat(1,top1,pic,top1);
+pic=cat(2,right1,pic,right1);
+end
+
+%去除白边
+cut =[c1 c2 c3 c4]; %上下左右四边需要切边的尺寸
+pic=pic(cut(1)+1:end-cut(2),cut(3)+1:end-cut(4),:,:);%开始裁剪  
+
+%合并图片
+P=cell(row,column);
+for i=1:num1
+    P{i}=pic(:,:,:,i);
+end
+C=cell2mat(P);
+
+%再增加外白边
+top2=255*ones(h1,(wide+2*h1-c3-c4)*column,3);
+right2=255*ones((high+2*h1-c1-c2)*row+2*h1,h1,3);
+C=cat(1,top2,C,top2);
+C=cat(2,right2,C,right2);
+
+%输出图像
+C=uint8(C);
+imwrite(C,[int2str(cputime) '.png']);
+imshow(C)
+</code></pre>
+<p><strong>代码二</strong></p>
+<pre><code>%图片合并，可以实现将一组图片变为统一规格尺寸（默认第一张图的尺寸）
+%可以自定义行列数拼合成一整张图片，若图片数不足行列乘积数则用等尺寸白色图片代替
+%可以设置为每一张图片增加或减少白边
+
+clear;
+clc;
+%设置行列数
+row=3;%输入组合图片行数
+column=3;%输入组合图片列数
+
+%设置全局变量
+global h1 high wide column row c1 c2 c3 c4
+
+%增白边
+h1=0;%白边宽度
+
+%去白边
+c1=0;%上白边宽度
+c2=0;%下白边宽度
+c3=0;%左白边宽度
+c4=0;%右白边宽度
+
+%将图片录入元胞数组
+pictures=dir('*.jpg');%读取文件，录入结构体数组
+num1=row*column;
+num2=size(pictures,1);%读取图片数量
+[high,wide,~]=size(imread(pictures(1).name));%读取第一张图片的尺寸
+F=uint8(255*ones(high,wide,3));%创建空白图片F
+P=cell(row,column);
+for i=1:num1
+    if i&lt;=num2
+    P{i}=imresize(imread(pictures(i).name),[high,wide]);
+    else%若图片数目小于行列乘积数则插入空白图片F
+    P{i}=F;
+    end
+end
+
+%增白边
+if h1 ~= 0
+    for i=1:num1
+    P{i}=ADD1(P{i});
+    end
+end
+
+%去白边
+if c1 ~= 0 | c2 ~= 0 | c3 ~= 0 | c4 ~= 0
+    for i=1:num1
+    P{i}=SUB(P{i});
+    end
+end
+
+%合并图片
+C=cell2mat(P);
+
+%再增加外白边
+if h1 ~= 0
+   C=ADD2(C);
+end
+
+%输出图像
+C=uint8(C);
+imwrite(C,[int2str(cputime) '.png']);
+imshow(C)
+
+%下列自定义函数可以另建.m文件存放
+%自定义增白边函数1
+function a2=ADD1(a)
+  global h1 high wide
+  top1=255*ones(h1,wide,3);
+  right1=255*ones(high+2*h1,h1,3);
+  a1=cat(1,top1,a,top1);
+  a2=cat(2,right1,a1,right1);
+end
+
+%自定义增白边函数2
+function b2=ADD2(b)
+  global h1 high wide column row c1 c2 c3 c4
+  top2=255*ones(h1,(wide+2*h1-c3-c4)*column,3);
+  right2=255*ones((high+2*h1-c1-c2)*row+2*h1,h1,3);
+  b1=cat(1,top2,b,top2);
+  b2=cat(2,right2,b1,right2);
+end
+
+%自定义去白边函数
+function s=SUB(a)
+  global c1 c2 c3 c4
+  cut =[c1 c2 c3 c4]; %上下左右四边需要切边的尺寸
+  s=a(cut(1)+1:end-cut(2),cut(3)+1:end-cut(4),:,:);%开始裁剪
+end
+</code></pre>
+<p><strong>处理前</strong><br>
+<img src="https://img-blog.csdnimg.cn/20191021150048734.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+<strong>处理后</strong> 增白边0，减白边0<br>
+<img src="https://img-blog.csdnimg.cn/20191021150114661.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+<strong>处理后</strong> 增白边10，减白边0<br>
+<img src="https://img-blog.csdnimg.cn/20191021150308261.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+<strong>处理后</strong> 增白边0，减白边20<br>
+<img src="https://img-blog.csdnimg.cn/20191021150329954.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+对于图片分块可见文章：<a href="https://blog.csdn.net/qq_45448725/article/details/102662971">Matlab之图片分块</a></p>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://fantastic-luke.github.io/post/matlab-zhi-tu-pian-fen-kuai">
+              <h3 class="post-title">
+                Matlab之图片分块
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://fantastic-luke.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>

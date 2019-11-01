@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fantastic-luke.github.io</id>
     <title>易之享</title>
-    <updated>2019-11-01T05:11:01.466Z</updated>
+    <updated>2019-11-01T05:14:39.790Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fantastic-luke.github.io"/>
     <link rel="self" href="https://fantastic-luke.github.io/atom.xml"/>
@@ -10,6 +10,253 @@
     <logo>https://fantastic-luke.github.io/images/avatar.png</logo>
     <icon>https://fantastic-luke.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 易之享</rights>
+    <entry>
+        <title type="html"><![CDATA[Matlab之文件批量命名（含GUI）]]></title>
+        <id>https://fantastic-luke.github.io/post/matlab-zhi-wen-jian-pi-liang-ming-ming-han-gui</id>
+        <link href="https://fantastic-luke.github.io/post/matlab-zhi-wen-jian-pi-liang-ming-ming-han-gui">
+        </link>
+        <updated>2019-11-01T05:14:21.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>功能</strong>：可以实现对指定后缀的文件进行批量重命名，我写了4种命名方式，想增添的可以自行修改。<br>
+<strong>GUI界面</strong><br>
+<img src="https://img-blog.csdnimg.cn/20191030151620325.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+<strong>代码</strong></p>
+<pre><code>name=get(handles.e1,'string');%读取后缀名
+way=get(handles.e2,'string');%读取命名方式
+W=['1','2','3','4'];
+if ismember(way,W)==1%方式输错报错
+files=dir(name);%读取文件
+len=length(files);%读取文件数量
+for i=1:len
+    oldname=files(i).name;%读取旧文件名
+    switch way
+        case '1'
+            newname=strcat(num2str(i),'.jpg');%录入新文件名
+        case '2'
+            CC=strsplit(files(i).date,{'-','月-',' ',':'});
+            newname=strcat(num2str(i),'_',CC{3},'.',CC{2},'.',CC{1},'.jpg');%录入新文件名
+        case '3'
+            CC=strsplit(files(i).date,{'-','月-',' ',':'});
+            newname=strcat(CC{3},'.',CC{2},'.',CC{1},'.',CC{4},'.jpg');%录入新文件名
+        case '4'
+            G=sprintf('%04d',i);
+            newname=strcat(G,'.jpg');%录入新文件名
+    end
+    
+    command=['rename' 32 oldname 32 newname];%调用rename系统函数，32是ASCII码，表示空格
+    status=dos(command);%设置提示信息
+    if status ~= 0
+        disp([oldname, '重命名失败',10]);
+    end
+end
+disp('运行完毕')
+else
+    disp('请输入正确的命名方式');
+end
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Matlab之图片拼接]]></title>
+        <id>https://fantastic-luke.github.io/post/matlab-zhi-tu-pian-pin-jie</id>
+        <link href="https://fantastic-luke.github.io/post/matlab-zhi-tu-pian-pin-jie">
+        </link>
+        <updated>2019-11-01T05:13:19.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>功能</strong>：可以自定义行列数拼接图片，拼接同时可以自定义对每张图片进行增（减）白边处理。</p>
+<p>1.使用Matlab建立.m文件，具体如何建立见文章：<br>
+<a href="https://blog.csdn.net/qq_45448725/article/details/102534631">Matlab基础之.m文件创建及使用</a><br>
+2.我写了两份代码可供参考<br>
+<strong>代码一</strong></p>
+<pre><code>%图片合并，可以实现将一组图片变为统一规格尺寸（默认第一张图的尺寸）
+%可以自定义行列数拼合成一整张图片，若图片数不足行列乘积数则用等尺寸白色图片代替
+%可以设置为每一张图片增加或减少白边
+
+clear;
+%设置行列数
+row=3;%输入组合图片行数
+column=3;%输入组合图片列数
+
+%增白边
+h1=10;%上下宽度
+
+%去白边
+c1=0;%上白边宽度
+c2=0;%下白边宽度
+c3=0;%左白边宽度
+c4=0;%右白边宽度
+
+%将图片录入数组
+pictures=dir('*.jpg');%读取文件，录入结构体数组
+num1=row*column;
+num2=size(pictures,1);%读取图片数量
+[high,wide,a]=size(imread(pictures(1).name));%读取第一张图片的尺寸
+F=255*ones(high,wide,3);%创建空白图片F
+for i=1:num1%将所有图片设置为与第一张图片的尺寸相同并导入四维矩阵pic
+    if i&lt;=num2
+    pic(:,:,:,i)=imresize(imread(pictures(i).name),[high,wide]);
+    else%若图片数目小于行列乘积数则插入空白图片F
+    pic(:,:,:,i)=F;
+    end
+end
+
+%增加白边
+if h1~=0
+top1=255*ones(h1,wide,3,num1);
+right1=255*ones(high+2*h1,h1,3,num1);
+pic=cat(1,top1,pic,top1);
+pic=cat(2,right1,pic,right1);
+end
+
+%去除白边
+cut =[c1 c2 c3 c4]; %上下左右四边需要切边的尺寸
+pic=pic(cut(1)+1:end-cut(2),cut(3)+1:end-cut(4),:,:);%开始裁剪  
+
+%合并图片
+P=cell(row,column);
+for i=1:num1
+    P{i}=pic(:,:,:,i);
+end
+C=cell2mat(P);
+
+%再增加外白边
+top2=255*ones(h1,(wide+2*h1-c3-c4)*column,3);
+right2=255*ones((high+2*h1-c1-c2)*row+2*h1,h1,3);
+C=cat(1,top2,C,top2);
+C=cat(2,right2,C,right2);
+
+%输出图像
+C=uint8(C);
+imwrite(C,[int2str(cputime) '.png']);
+imshow(C)
+</code></pre>
+<p><strong>代码二</strong></p>
+<pre><code>%图片合并，可以实现将一组图片变为统一规格尺寸（默认第一张图的尺寸）
+%可以自定义行列数拼合成一整张图片，若图片数不足行列乘积数则用等尺寸白色图片代替
+%可以设置为每一张图片增加或减少白边
+
+clear;
+clc;
+%设置行列数
+row=3;%输入组合图片行数
+column=3;%输入组合图片列数
+
+%设置全局变量
+global h1 high wide column row c1 c2 c3 c4
+
+%增白边
+h1=0;%白边宽度
+
+%去白边
+c1=0;%上白边宽度
+c2=0;%下白边宽度
+c3=0;%左白边宽度
+c4=0;%右白边宽度
+
+%将图片录入元胞数组
+pictures=dir('*.jpg');%读取文件，录入结构体数组
+num1=row*column;
+num2=size(pictures,1);%读取图片数量
+[high,wide,~]=size(imread(pictures(1).name));%读取第一张图片的尺寸
+F=uint8(255*ones(high,wide,3));%创建空白图片F
+P=cell(row,column);
+for i=1:num1
+    if i&lt;=num2
+    P{i}=imresize(imread(pictures(i).name),[high,wide]);
+    else%若图片数目小于行列乘积数则插入空白图片F
+    P{i}=F;
+    end
+end
+
+%增白边
+if h1 ~= 0
+    for i=1:num1
+    P{i}=ADD1(P{i});
+    end
+end
+
+%去白边
+if c1 ~= 0 | c2 ~= 0 | c3 ~= 0 | c4 ~= 0
+    for i=1:num1
+    P{i}=SUB(P{i});
+    end
+end
+
+%合并图片
+C=cell2mat(P);
+
+%再增加外白边
+if h1 ~= 0
+   C=ADD2(C);
+end
+
+%输出图像
+C=uint8(C);
+imwrite(C,[int2str(cputime) '.png']);
+imshow(C)
+
+%下列自定义函数可以另建.m文件存放
+%自定义增白边函数1
+function a2=ADD1(a)
+  global h1 high wide
+  top1=255*ones(h1,wide,3);
+  right1=255*ones(high+2*h1,h1,3);
+  a1=cat(1,top1,a,top1);
+  a2=cat(2,right1,a1,right1);
+end
+
+%自定义增白边函数2
+function b2=ADD2(b)
+  global h1 high wide column row c1 c2 c3 c4
+  top2=255*ones(h1,(wide+2*h1-c3-c4)*column,3);
+  right2=255*ones((high+2*h1-c1-c2)*row+2*h1,h1,3);
+  b1=cat(1,top2,b,top2);
+  b2=cat(2,right2,b1,right2);
+end
+
+%自定义去白边函数
+function s=SUB(a)
+  global c1 c2 c3 c4
+  cut =[c1 c2 c3 c4]; %上下左右四边需要切边的尺寸
+  s=a(cut(1)+1:end-cut(2),cut(3)+1:end-cut(4),:,:);%开始裁剪
+end
+</code></pre>
+<p><strong>处理前</strong><br>
+<img src="https://img-blog.csdnimg.cn/20191021150048734.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+<strong>处理后</strong> 增白边0，减白边0<br>
+<img src="https://img-blog.csdnimg.cn/20191021150114661.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+<strong>处理后</strong> 增白边10，减白边0<br>
+<img src="https://img-blog.csdnimg.cn/20191021150308261.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+<strong>处理后</strong> 增白边0，减白边20<br>
+<img src="https://img-blog.csdnimg.cn/20191021150329954.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+对于图片分块可见文章：<a href="https://blog.csdn.net/qq_45448725/article/details/102662971">Matlab之图片分块</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Matlab之图片分块]]></title>
+        <id>https://fantastic-luke.github.io/post/matlab-zhi-tu-pian-fen-kuai</id>
+        <link href="https://fantastic-luke.github.io/post/matlab-zhi-tu-pian-fen-kuai">
+        </link>
+        <updated>2019-11-01T05:12:29.000Z</updated>
+        <content type="html"><![CDATA[<p>1.使用Matlab建立.m文件，具体如何建立见文章：<br>
+<a href="https://blog.csdn.net/qq_45448725/article/details/102534631">Matlab基础之.m文件创建及使用</a><br>
+2.写入下列代码</p>
+<pre><code>%将图片按照highsplit*widesplit（eg:3*3）切割
+clear;
+clc;
+R=imread('01.jpg');%读取图片01.jpg
+highsplit=3;%设置对高平均切割为几份
+widesplit=3;%设置对宽平均切割为几份
+high=floor(size(R,1)/highsplit);%读取图片的高并向下取整
+wide=floor(size(R,2)/widesplit);%读取图片的宽并向下取整
+for i=0:(highsplit-1)%i控制行
+    for j=0:(widesplit-1)%j控制列
+        R1=imcrop(R,[i*wide+1 j*high+1 wide-1 high-1]); %（j*wide+1 i*high+1）为切割起始点；（wide-1 high-1）为切割范围
+        imwrite(R1,['new_' int2str(i+1) '_' int2str(j+1) '.jpg'])%保存切割后的图片（注意表达式中的空格）
+    end
+end
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://img-blog.csdnimg.cn/20191021140318145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></figure>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Matlab基础之.m文件创建及使用]]></title>
         <id>https://fantastic-luke.github.io/post/matlab-ji-chu-zhi-m-wen-jian-chuang-jian-ji-shi-yong</id>
