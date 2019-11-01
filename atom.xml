@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fantastic-luke.github.io</id>
     <title>易之享</title>
-    <updated>2019-11-01T05:14:39.790Z</updated>
+    <updated>2019-11-01T09:18:22.580Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fantastic-luke.github.io"/>
     <link rel="self" href="https://fantastic-luke.github.io/atom.xml"/>
@@ -10,6 +10,16 @@
     <logo>https://fantastic-luke.github.io/images/avatar.png</logo>
     <icon>https://fantastic-luke.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 易之享</rights>
+    <entry>
+        <title type="html"><![CDATA[关于]]></title>
+        <id>https://fantastic-luke.github.io/post/guan-yu</id>
+        <link href="https://fantastic-luke.github.io/post/guan-yu">
+        </link>
+        <updated>2019-11-01T09:09:50.000Z</updated>
+        <content type="html"><![CDATA[<p>欢迎关注微信公众号“易之享”！里面也有很多精彩的文章！<br>
+<img src="https://img-blog.csdnimg.cn/20191101171657166.png" alt="在这里插入图片描述"></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Matlab之文件批量命名（含GUI）]]></title>
         <id>https://fantastic-luke.github.io/post/matlab-zhi-wen-jian-pi-liang-ming-ming-han-gui</id>
