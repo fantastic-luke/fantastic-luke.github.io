@@ -1,93 +1,102 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" >
+
 <title>Matlab基础之.m文件创建及使用 | 易之享</title>
-<meta name="description" content="让分享变得更简单" />
-<link rel="shortcut icon" href="https://fantastic-luke.github.io/favicon.ico?v=1572600175636">
+<meta name="description" content="让分享变得更简单">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://fantastic-luke.github.io/favicon.ico?v=1572663636895">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://fantastic-luke.github.io/styles/main.css">
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 
 
   </head>
   <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://fantastic-luke.github.io">
-  <img class="avatar" src="https://fantastic-luke.github.io/images/avatar.png?v=1572600175636" alt="">
-  </a>
-  <h1 class="site-title">
-    易之享
-  </h1>
-  <p class="site-description">
-    让分享变得更简单
-  </p>
-  <div class="menu-container">
-    
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://fantastic-luke.github.io">
+        <img src="https://fantastic-luke.github.io/images/avatar.png?v=1572663636895" class="site-logo">
+        <h1 class="site-title">易之享</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
       
-        <a href="/" class="menu">
-          首页
-        </a>
+        
+          <a href="https://fantastic-luke.github.io" class="site-nav">
+            首页
+          </a>
+        
       
-    
+        
+          <a href="https://fantastic-luke.github.io/tags" class="site-nav">
+            归档
+          </a>
+        
       
-        <a href="/archives" class="menu">
-          归档
-        </a>
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
       
-    
+        
+          <a href="https://fantastic-luke.github.io/post/guan-yu/" class="site-nav">
+            关于
+          </a>
+        
       
-        <a href="/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
-        </a>
-      
-    
+    </div>
   </div>
-  <div class="social-container">
-    
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
       
-    
+        
       
-    
+        
       
-    
+        
       
-    
+        
       
-    
+        
+      
+    </div>
+    <div class="site-description">
+      让分享变得更简单
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://fantastic-luke.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
   </div>
 </div>
 
-        <div class="post-detail">
-          <article class="post">
-            <h2 class="post-title">
-              Matlab基础之.m文件创建及使用
-            </h2>
-            <div class="post-info">
-              <span>
-                2019-11-01
-              </span>
-              <span>
-                2 min read
-              </span>
-              
-            </div>
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Matlab基础之.m文件创建及使用</h2>
+            <div class="post-date">2019-11-01</div>
             
-            <div class="post-content-wrapper">
-              <div class="post-content">
-                <h4 id="一创建">一.创建</h4>
+            <div class="post-content">
+              <h4 id="一创建">一.创建</h4>
 <p>1.打开Matlab如下图所示，点击“新建脚本”<br>
 <img src="https://img-blog.csdnimg.cn/2019101316173795.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">2.然后会出现“编辑器”界面，在“编辑器”界面里随便输入字符，然后点击关闭<br>
 <img src="https://img-blog.csdnimg.cn/2019101316185110.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">3.点击“是”<br>
@@ -121,81 +130,37 @@ imshow(B)
 7.运行结果如图所示<br>
 <img src="https://img-blog.csdnimg.cn/20191013165416441.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ1NDQ4NzI1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
-              </div>
-              <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#%E4%B8%80%E5%88%9B%E5%BB%BA">一.创建</a></li>
-</ul>
-</li>
-<li><a href="#%E4%BA%8C%E4%BD%BF%E7%94%A8">二.使用</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-              </div>
             </div>
-          </article>
+            
+            
+
+            
+
+          </div>
+
         </div>
+      </div>
+    </div>
 
-        
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
-        
+<script type="application/javascript">
 
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
-  <a class="rss" href="https://fantastic-luke.github.io/atom.xml" target="_blank">RSS</a>
-</div>
+AOS.init();
 
-<script>
-  hljs.initHighlightingOnLoad()
+hljs.initHighlightingOnLoad()
 
-  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
-
-  // This should probably be throttled.
-  // Especially because it triggers during smooth scrolling.
-  // https://lodash.com/docs/4.17.10#throttle
-  // You could do like...
-  // window.addEventListener("scroll", () => {
-  //    _.throttle(doThatStuff, 100);
-  // });
-  // Only not doing it here to keep this Pen dependency-free.
-
-  window.addEventListener("scroll", event => {
-    let fromTop = window.scrollY;
-
-    mainNavLinks.forEach((link, index) => {
-      let section = document.getElementById(decodeURI(link.hash).substring(1));
-      let nextSection = null
-      if (mainNavLinks[index + 1]) {
-        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-      }
-      if (section.offsetTop <= fromTop) {
-        if (nextSection) {
-          if (nextSection.offsetTop > fromTop) {
-            link.classList.add("current");
-          } else {
-            link.classList.remove("current");    
-          }
-        } else {
-          link.classList.add("current");
-        }
-      } else {
-        link.classList.remove("current");
-      }
-    });
-  });
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
 
 </script>
 
-      </div>
-    </div>
+
+
+
   </body>
 </html>
